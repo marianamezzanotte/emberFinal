@@ -1,0 +1,113 @@
+<table class="table table-striped">
+   <thead>
+      <tr>
+         <th>Receta</th>
+         <th>Categoria</th>
+         <th>Comensales</th>
+         <th>Tiempo de Preparacion</th>
+		 <th>Acciones</th>
+      </tr>
+   </thead>
+   <tbody id="listasRecetas">
+     {{#each model.information as |m|}}
+      	<tr>
+         <td>{{m.thing.nombrereceta}}</td>
+         <td>{{m.thing.categoria}}</td>
+         <td>{{m.thing.comensales}}</td>
+         <td>{{m.thing.tiempococ}}</td>
+		     <td>
+      			<button type="button" onclick={{route-action "showUpdate" m}} class="btn btn-default btn-lg">
+      				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+      			</button>
+            <button type="button" {{action "borrar" m._id}} class="btn btn-default btn-lg">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+      		</td>
+    	</tr>
+    {{/each}}
+   </tbody>
+</table>
+
+{{#unless isUpdating}}
+  <form>
+  	<input class ="js-numGrupo" type = "hidden" value="26">
+  	<div>
+  		<label>Receta</label>
+  		{{input value=nr type='text' class="form-control" placeholder="Ingrese nombre.." required="true"}}
+  	</div>
+
+  	<div>
+  		<label>Comensales</label>
+
+      <select required onchange={{route-action "selectComensales"}} class="form-control">
+        <option disabled selected>Seleccione la cantidad de comensales</option>
+  			<option>1</option>
+  			<option>2</option>
+  			<option>3</option>
+  			<option>4</option>
+  			<option>5</option>
+  			<option>6</option>
+  		</select>
+  	</div>
+
+  	<div>
+  		<label>Categorias</label>
+  	</div>
+    {{input value=c type='text' class="form-control" required="true"}}
+
+  	<div>
+  		<label>Tiempo de Preparacion</label>
+      {{input value=time type='text' class="form-control" required="true"}}
+  	</div>
+
+  	<button type="submit"  class="btn btn-success"  {{action "guardar" nr c time}} >Enviar</button>
+  	<button id="cancelar" class="btn btn-default">Cancelar</button>
+  	<button type="button" class="btn btn-default js-enviarTres">Agregar 3</button>
+
+  </form>
+{{/unless}}
+
+{{#if isUpdating}}
+  <form>
+    <input class ="js-numGrupo" type = "hidden" value="26">
+
+    <div>
+      <label>Receta</label>
+      {{input value=recetaSeleccionada.thing.nombrereceta type='text' class="form-control" placeholder="Ingrese nombre.." required="true"}}
+    </div>
+
+    <div>
+      <label>Comensales</label>
+
+      <select required onchange={{route-action "selectComensales"}} value={{recetaSeleccionada.thing.comensales}} class="form-control">
+        <option disabled selected>Seleccione la cantidad de comensales</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Categorias</label>
+    </div>
+    {{input value=recetaSeleccionada.thing.categoria type='text'  class="form-control" required="true"}}
+
+    <div>
+      <label>Tiempo de Preparacion</label>
+      {{input value=recetaSeleccionada.thing.tiempococ type='text' class="form-control" required="true"}}
+    </div>
+
+    <button type="submit"  class="btn btn-success" {{action "modificar"}} >Enviar</button>
+    <button id="cancelar" class="btn btn-default" onclick={{route-action "cancelUpdate"}} >Cancelar</button>
+
+  </form>
+
+{{/if}}
+
+
+
+
+{{outlet}}
