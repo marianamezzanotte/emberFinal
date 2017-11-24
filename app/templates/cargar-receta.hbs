@@ -5,6 +5,8 @@
          <th>Categoria</th>
          <th>Comensales</th>
          <th>Tiempo de Preparacion</th>
+         <th>Pasos</th>
+
 		 <th>Acciones</th>
       </tr>
    </thead>
@@ -15,6 +17,7 @@
          <td>{{m.thing.categoria}}</td>
          <td>{{m.thing.comensales}}</td>
          <td>{{m.thing.tiempococ}}</td>
+         <td>{{m.thing.pasos}}</td>
 		     <td>
       			<button type="button" onclick={{route-action "showUpdate" m}} class="btn btn-default btn-lg">
       				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -60,7 +63,12 @@
       {{input value=time type='text' class="form-control" required="true"}}
   	</div>
 
-  	<button type="submit"  class="btn btn-success"  {{action "guardar" nr c time}} >Enviar</button>
+    <div>
+  		<label>Pasos</label>
+  		{{input value=pasos type='text' class="form-control" placeholder="Ingrese los pasos a seguir.." required="true"}}
+  	</div>
+
+  	<button type="submit"  class="btn btn-success"  {{action "guardar" nr c time pasos}} >Enviar</button>
   	<button id="cancelar" class="btn btn-default">Cancelar</button>
   	<button type="button" class="btn btn-default js-enviarTres">Agregar 3</button>
 
@@ -99,6 +107,11 @@
       <label>Tiempo de Preparacion</label>
       {{input value=recetaSeleccionada.thing.tiempococ type='text' class="form-control" required="true"}}
     </div>
+
+    <div>
+  		<label>Pasos</label>
+  		{{input value=recetaSeleccionada.thing.pasos type='text' class="form-control" placeholder="Ingrese los pasos a seguir.." required="true"}}
+  	</div>
 
     <button type="submit"  class="btn btn-success" {{action "modificar"}} >Enviar</button>
     <button id="cancelar" class="btn btn-default" onclick={{route-action "cancelUpdate"}} >Cancelar</button>

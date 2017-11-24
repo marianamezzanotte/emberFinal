@@ -11,8 +11,8 @@ export default Route.extend({
 
  actions:
  {
-   guardar(nombrereceta, categoria, time){
-     this.get('ajax').post('http://web-unicen.herokuapp.com/api/thing/', { data: {group: 333 , thing:{ nombrereceta: nombrereceta, categoria: categoria, comensales: this.get('comensales'), tiempococ: time } }});
+   guardar(nombrereceta, categoria, time, pasos){
+     this.get('ajax').post('http://web-unicen.herokuapp.com/api/thing/', { data: {group: 333 , thing:{ nombrereceta: nombrereceta, categoria: categoria, comensales: this.get('comensales'), tiempococ: time, pasos: pasos } }});
      this.refresh();
    },
 
@@ -31,7 +31,8 @@ export default Route.extend({
             nombrereceta: receta.thing.nombrereceta,
             categoria: receta.thing.categoria,
             comensales: this.get('comensales'),
-            tiempococ: receta.thing.tiempococ
+            tiempococ: receta.thing.tiempococ,
+            pasos: receta.thing.pasos
           }
         }
       });
